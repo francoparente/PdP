@@ -28,9 +28,15 @@ cree(macarena,magoCapria).
 cree(macarena,campanita).
 
 %suenio(Persona,Functor).
-%tipoSuenio(TipoSuenio,Parametro).
+%ganarLoteria(SerieNumeros).
+%serFutbolista(NombreEquipo).
+%serCantante(CantDiscosVendidos).
+
 suenio(gabriel,ganarLoteria([5,9])).
 suenio(gabriel,serFutbolista(arsenal)).
 suenio(juan,serCantante(100000)).
 suenio(macarena,serCantante(10000)).
 
+%dificultad(TipoSuenio, Dificultad).
+dificultad(serCantante(CantDiscos),6) :- CantDiscos >500000.
+dificultad(serCantante(CantDiscos),4) :- CantDiscos =<500000.
