@@ -3,6 +3,7 @@
 %--------
 
 % Punto 1
+%---------
 
 %persona(Persona).
 persona(gabriel).
@@ -11,12 +12,12 @@ persona(macarena).
 persona(diego).
 
 %creencia(Creencia).
-creencia(campanita).
-creencia(magoOz).
-creencia(cavenaghi).
-creencia(conejoPascua).
-creencia(reyesMagos).
-creencia(magoCapria).
+personaje(campanita).
+personaje(magoOz).
+personaje(cavenaghi).
+personaje(conejoPascua).
+personaje(reyesMagos).
+personaje(magoCapria).
 
 %cree(Persona, Creencia).
 cree(gabriel,campanita).
@@ -45,6 +46,9 @@ equipoChico(aldosivi).
 tipoSuenio(TipoSuenio) :-
     suenio(Persona,_).
 
+% Punto 2
+%---------
+
 %dificultad(TipoSuenio, Dificultad).
 dificultad(Persona,6) :- suenio(Persona,serCantante(CantDiscosVendidos)), CantDiscosVendidos>500000.
 dificultad(Persona,4) :- suenio(Persona,serCantante(CantDiscosVendidos)), CantDiscosVendidos=<500000.
@@ -55,3 +59,7 @@ dificultad(Persona,3) :- suenio(Persona,serFutbolista(Equipo)), equipoChico(Equi
 dificultad(Persona,4) :- suenio(Persona,serFutbolista(Equipo)), not(equipoChico(Equipo)).
 
 esAmbiciosa(Persona) :- persona(Persona), findall(Dificultad,dificultad(Persona,Dificultad),DificultadTotal), sum_list(DificultadTotal,Suma), Suma >20.
+
+% Punto 3
+%---------
+
