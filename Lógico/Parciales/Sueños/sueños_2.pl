@@ -96,8 +96,7 @@ cumpleCondiciones(Persona,campanita) :-
     Dificultad <5.
 
 cumpleCondiciones(Persona,campanita) :-
-    forall(suenio(Persona,_),
-    suenioPuro(Persona)),
+    forall(suenio(Persona,_), suenioPuro(Persona)),
     not(esAmbiciosa(Persona)).
 
 % Punto 4
