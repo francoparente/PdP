@@ -95,9 +95,10 @@ cumpleCondiciones(Persona,campanita) :-
     dificultad(Persona,Dificultad),
     Dificultad <5.
 
-cumpleCondiciones(Persona,campanita) :-
+cumpleCondiciones(Persona,Personaje) :-
     forall(suenio(Persona,_), suenioPuro(Persona)),
-    not(esAmbiciosa(Persona)).
+    not(esAmbiciosa(Persona)),
+    Personaje \= campanita.
 
 % Punto 4
 %---------
