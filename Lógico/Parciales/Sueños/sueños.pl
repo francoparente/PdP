@@ -19,6 +19,10 @@ personaje(conejoPascua).
 personaje(reyesMagos).
 personaje(magoCapria).
 
+enfermo(campanita).
+enfermo(reyesMagos).
+enfermo(conejoPascua).
+
 %cree(Persona, Personaje).
 cree(gabriel,campanita).
 cree(gabriel,magoOz).
@@ -68,3 +72,15 @@ esAmbiciosa(Persona) :- persona(Persona), findall(Dificultad,dificultad(Persona,
 
 hayQuimica(Persona,campanita) :- cree(Persona,campanita), dificultad(Persona,Dificultad), Dificultad <5.
 hayQuimica(Persona,Personaje) :- cree(Persona,Personaje), suenio(Persona,Suenio), suenioPuro(Suenio), not(esAmbiciosa(Persona)).
+
+% Punto 4
+%---------
+
+%amigo(Personaje,Personaje).
+amigo(campanita,reyesMagos).
+amigo(campanita,conejoPascua).
+amigo(conejoPascua,cavenaghi).
+
+%alegra(Personaje,Persona).
+alegra(Personaje,Persona) :- suenio(Persona,_).
+alegra(Personaje,Persona) :- hayQuimica(Persona,Personaje), not(enfermo(Personaje))
