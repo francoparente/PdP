@@ -88,5 +88,5 @@ alegra(Personaje,Persona) :- hayQuimica(Persona,Personaje), .
 
 backup(Personaje,PersonajeBackup) :- amigo(Personaje,PersonajeBackup).
 backup(Personaje,PersonajeBackup) :-
-    amigo(Personaje,PersonajeBackup),
-    backup(PersonajeBackup2,Personaje).
+    amigo(PersonajeBackup2,PersonajeBackup),
+    backup(Personaje,PersonajeBackup2).
