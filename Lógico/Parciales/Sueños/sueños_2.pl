@@ -43,16 +43,15 @@ suenio(gabriel,serFutbolista(arsenal)).
 suenio(juan,serCantante(100000)).
 suenio(macarena,serCantante(10000)).
 
-suenioPuro(serFutbolista(_)).
-suenioPuro(serCantante(CantDiscosVendidos)) :-
+suenioPuro(Persona) :-
+    suenio(Persona,serFutbolista(_)).
+suenioPuro(Persona) :-
+    suenio(Persona,serCantante(CantDiscosVendidos)),
     CantDiscosVendidos <200000.
 
 %equipoChico(Equipo).
 equipoChico(arsenal).
 equipoChico(aldosivi).
-
-tipoSuenio(TipoSuenio) :-
-    suenio(Persona,_).
 
 % Punto 2
 %---------
@@ -79,20 +78,26 @@ dificultad(Persona,4) :-
 
 esAmbiciosa(Persona) :-
     persona(Persona),
-    findall(Dificultad,dificultad(Persona,Dificultad),DificultadTotal),
-    sum_list(DificultadTotal,Suma), Suma >20.
+    findall(Dificultad, dificultad(Persona, Dificultad), ListaDificultades),
+    sum_list(ListaDificultades, DificultadTotal), DificultadTotal >20.
 
 % Punto 3
 %---------
 
-hayQuimica(Persona,campanita) :-
-    cree(Persona,campanita),
+hayQuimica(Persona,Personaje) :-
+    persona(Persona),
+    personaje(Personaje),
+    cree(Persona,Personaje),
+    cumpleCondiciones(Persona,Personaje).
+
+cumpleCondiciones(Persona,campanita) :-
+    suenio(Persona,_),
     dificultad(Persona,Dificultad),
     Dificultad <5.
-hayQuimica(Persona,Personaje) :-
-    cree(Persona,Personaje),
-    suenio(Persona,Suenio),
-    suenioPuro(Suenio),
+
+cumpleCondiciones(Persona,campanita) :-
+    forall(suenio(Persona,_),
+    suenioPuro(Persona)),
     not(esAmbiciosa(Persona)).
 
 % Punto 4
@@ -104,6 +109,7 @@ amigo(campanita,conejoPascua).
 amigo(conejoPascua,cavenaghi).
 
 %alegra(Personaje,Persona).
+% alegra(Personaje,Persona) :- suenio(Persona,_).
 alegra(Personaje,Persona) :-
     suenio(Persona,_),
     hayQuimica(Persona,Personaje),
