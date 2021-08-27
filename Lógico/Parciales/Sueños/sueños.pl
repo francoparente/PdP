@@ -83,4 +83,10 @@ amigo(conejoPascua,cavenaghi).
 
 %alegra(Personaje,Persona).
 alegra(Personaje,Persona) :- suenio(Persona,_).
-alegra(Personaje,Persona) :- hayQuimica(Persona,Personaje), not(enfermo(Personaje))
+alegra(Personaje,Persona) :- hayQuimica(Persona,Personaje), not(enfermo(Personaje)).
+alegra(Personaje,Persona) :- hayQuimica(Persona,Personaje), .
+
+backup(Personaje,PersonajeBackup) :- amigo(Personaje,PersonajeBackup).
+backup(Personaje,PersonajeBackup) :-
+    amigo(Personaje,PersonajeBackup),
+    backup(PersonajeBackup2,Personaje).
