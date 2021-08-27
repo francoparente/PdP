@@ -11,7 +11,7 @@ persona(juan).
 persona(macarena).
 persona(diego).
 
-%creencia(Creencia).
+%personaje(Personaje).
 personaje(campanita).
 personaje(magoOz).
 personaje(cavenaghi).
@@ -19,7 +19,7 @@ personaje(conejoPascua).
 personaje(reyesMagos).
 personaje(magoCapria).
 
-%cree(Persona, Creencia).
+%cree(Persona, Personaje).
 cree(gabriel,campanita).
 cree(gabriel,magoOz).
 cree(gabriel,cavenaghi).
@@ -38,6 +38,9 @@ suenio(gabriel,ganarLoteria([5,9])).
 suenio(gabriel,serFutbolista(arsenal)).
 suenio(juan,serCantante(100000)).
 suenio(macarena,serCantante(10000)).
+
+suenioPuro(serFutbolista(_)).
+suenioPuro(serCantante(CantDiscosVendidos)) :- CantDiscosVendidos <200000.
 
 %equipoChico(Equipo).
 equipoChico(arsenal).
@@ -63,3 +66,5 @@ esAmbiciosa(Persona) :- persona(Persona), findall(Dificultad,dificultad(Persona,
 % Punto 3
 %---------
 
+hayQuimica(Persona,campanita) :- cree(Persona,campanita), dificultad(Persona,Dificultad), Dificultad <5.
+hayQuimica(Persona,Personaje) :- cree(Persona,Personaje), suenio(Persona,Suenio), suenioPuro(Suenio), not(esAmbiciosa(Persona)).
