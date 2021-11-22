@@ -10,8 +10,9 @@ class EspacioUrbano {
 	method esGrande() {
 		return superficie > 50 && self.cumpleCondiciones()
 	}
-	
 	method cumpleCondiciones()
+	
+	method esVerde() = false
 }
 //--------------------- Instancias - Espacio Urbano
 
@@ -20,6 +21,7 @@ class Plaza inherits EspacioUrbano {
 	var property espacioEsparcimiento
 	
 	override method cumpleCondiciones() = return cantCanchas > 2
+	override method esVerde() = cantCanchas == 0
 }
 
 class Plazoleta inherits EspacioUrbano {
@@ -39,6 +41,7 @@ class Multiespacio inherits EspacioUrbano {
 	const property espaciosUrbanos
 	
 	override method cumpleCondiciones() = espaciosUrbanos.all({espacio => espacio.esGrande()})
+	override method esVerde() = self.espaciosUrbanos().length() > 3
 }
 
 //--------------------- Trabajador y Profesión
