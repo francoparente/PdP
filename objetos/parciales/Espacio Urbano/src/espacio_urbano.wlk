@@ -13,6 +13,7 @@ class EspacioUrbano {
 	method cumpleCondiciones()
 	
 	method esVerde() = false
+	method esLimpiable() = false
 }
 //--------------------- Instancias - Espacio Urbano
 
@@ -22,6 +23,7 @@ class Plaza inherits EspacioUrbano {
 	
 	override method cumpleCondiciones() = return cantCanchas > 2
 	override method esVerde() = cantCanchas == 0
+	override method esLimpiable() = true
 }
 
 class Plazoleta inherits EspacioUrbano {
@@ -35,13 +37,14 @@ class Anfiteatro inherits EspacioUrbano {
 	var property tamanioEscenario
 	
 	override method cumpleCondiciones() = capacidad > 500
+	override method esLimpiable() = self.esGrande()
 }
 
 class Multiespacio inherits EspacioUrbano {
 	const property espaciosUrbanos
 	
 	override method cumpleCondiciones() = espaciosUrbanos.all({espacio => espacio.esGrande()})
-	override method esVerde() = self.espaciosUrbanos().length() > 3
+	override method esVerde() = self.espaciosUrbanos().size() > 3
 }
 
 //--------------------- Trabajador y Profesión
