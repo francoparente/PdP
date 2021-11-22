@@ -4,75 +4,75 @@ class EspacioUrbano {
 	var property valuacion = 0
 	var property superficie = 0
 	var property nombre = ""
-	var property vallado
+	var property tieneVallado
+	const property trabajosRealizados = #{}
 	
-	method tieneVallado() {
-		return vallado
+	method esGrande() {
+		return superficie > 50 && self.cumpleCondiciones()
 	}
-	method esGrande(superficie) {
-		return superficie > 50 && cumpleCondiciones()
-	}
+	
+	method cumpleCondiciones()
 }
 //--------------------- Instancias - Espacio Urbano
 
 class Plaza inherits EspacioUrbano {
-	var property cantCanchas = 0
-	var espacioEsparcimiento
+	var property cantCanchas
+	var property espacioEsparcimiento
 	
-	method cumpleCondiciones() {
-		return cantCanchas > 2
-	}
+	override method cumpleCondiciones() = return cantCanchas > 2
 }
 
 class Plazoleta inherits EspacioUrbano {
-	var procer = ""
+	var property procer
 	
-	method cumpleCondiciones() {
-		return procer == "San Martín" && tieneVallado()
-	}
+	override method cumpleCondiciones() = procer == "San Martín" && tieneVallado
 }
 
 class Anfiteatro inherits EspacioUrbano {
-	var capacidad = 1000
-	var tamanioEscenario = 0
+	var property capacidad
+	var property tamanioEscenario
 	
-	method cumpleCondiciones() {
-		return capacidad > 500
-	}
+	override method cumpleCondiciones() = capacidad > 500
 }
 
 class Multiespacio inherits EspacioUrbano {
-	var espaciosUrbanos = []
+	const property espaciosUrbanos
 	
-	method cumpleCondiciones() {
+	override method cumpleCondiciones() = espaciosUrbanos.all({espacio => espacio.esGrande()})
+}
+
+//--------------------- Trabajador y Profesión
+
+class Trabajador {
+	var property profesion
+	var property valorHora
+}
+
+class Profesion {
+	method trabajarEn(espacio,trabajador) {
 		
 	}
 }
 
-//--------------------- Persona
+//--------------------- Instancias de Profesión
 
-class Persona {
-	var property profesion = ""
+object cerrajero inherits Profesion {
+	
 }
 
-object cerrajero inherits Persona {
-	method puedeTrabajar(espacio) {
-		return espacio.tieneVallado()
-	}
-	method trabajar(espacio) {
-		
-	}
+object jardinero inherits Profesion {
+	
 }
 
-object jardinero inherits Persona {
-	method puedeTrabajar(espacio) {
-		
-	}
+object encargado inherits Profesion {
+	
 }
 
+//--------------------- Trabajo
 
-
-
+class Trabajo {
+	
+}
 
 
 
