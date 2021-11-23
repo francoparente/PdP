@@ -1,4 +1,4 @@
-//--------------------- Espacio Urbano
+//------------------------------------------ Espacio Urbano
 
 class EspacioUrbano {
 	var property valuacion = 0
@@ -14,8 +14,11 @@ class EspacioUrbano {
 	
 	method esVerde() = false
 	method esLimpiable() = false
+	method aumentarValuacion(aumento){
+		valuacion += aumento
+	}
 }
-//--------------------- Instancias - Espacio Urbano
+//------------------------------------------ Instancias - Espacio Urbano
 
 class Plaza inherits EspacioUrbano {
 	var property cantCanchas
@@ -47,34 +50,67 @@ class Multiespacio inherits EspacioUrbano {
 	override method esVerde() = self.espaciosUrbanos().size() > 3
 }
 
-//--------------------- Trabajador y Profesión
+//------------------------------------------ Trabajador y Profesión
 
 class Trabajador {
 	var property profesion
-	var property valorHora
+	var property valorHora = 100
+	
+	method trabajaEn(espacio) {
+		profesion.trabajaEn(espacio,self)
+	}
 }
 
 class Profesion {
 	method trabajarEn(espacio,trabajador) {
-		
+		self.validarTrabajo(espacio)
+		self.producirEfecto(espacio)
+		self.registrarTrabajo(espacio,trabajador)
 	}
+	method validarTrabajo(espacio) {
+		if(!self.puedeTrabajarEn(espacio)){
+			throw new DomainException(message = "El trabajador no puede realizar el trabajo en este espacio.")
+			}
+	}
+	method puedeTrabajarEn(espacio)
+	method producirEfecto(espacio)
+	method registrarTrabajo(espacio,trabajador)
 }
 
-//--------------------- Instancias de Profesión
+//------------------------------------------ Instancias de Profesión
 
 object cerrajero inherits Profesion {
+	override method puedeTrabajarEn(espacio) = !espacio.tieneVallado()
+	override method producirEfecto(espacio) {
+		espacio.tieneVallado(true)
+	}
+	override method registrarTrabajo(espacio,trabajador) {
+		
+	} 
 	
 }
 
 object jardinero inherits Profesion {
-	
+	override method puedeTrabajarEn(espacio) = espacio.esVerde()
+	override method producirEfecto(espacio) {
+		espacio.aumentarValuacion(espacio.valuacion() * 0.1)
+	}
+	override method registrarTrabajo(espacio,trabajador) {
+		
+	}
 }
 
 object encargado inherits Profesion {
-	
+	override method puedeTrabajarEn(espacio) = espacio.esLimpiable()
+	override method producirEfecto(espacio) {
+		espacio.aumentarValuacion(5000)
+	}
+	override method registrarTrabajo(espacio,trabajador) {
+		
+	}
 }
 
-//--------------------- Trabajo
+//------------------------------------------ Trabajo
 
 class Trabajo {
 	
