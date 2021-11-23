@@ -50,6 +50,15 @@ class Multiespacio inherits EspacioUrbano {
 	override method esVerde() = self.espaciosUrbanos().size() > 3
 }
 
+//------------------------------------------ Trabajo
+
+class Trabajo {
+	var property persona
+	var property horasDeTrabajo
+	var property costo
+	var property fecha = new Date()
+}
+
 //------------------------------------------ Trabajador y Profesión
 
 class Trabajador {
@@ -62,59 +71,74 @@ class Trabajador {
 }
 
 class Profesion {
+	
 	method trabajarEn(espacio,trabajador) {
 		self.validarTrabajo(espacio)
 		self.producirEfecto(espacio)
 		self.registrarTrabajo(espacio,trabajador)
 	}
+	
 	method validarTrabajo(espacio) {
 		if(!self.puedeTrabajarEn(espacio)){
 			throw new DomainException(message = "El trabajador no puede realizar el trabajo en este espacio.")
 			}
 	}
+	
 	method puedeTrabajarEn(espacio)
+	
 	method producirEfecto(espacio)
-	method registrarTrabajo(espacio,trabajador)
+	
+	method registrarTrabajo(espacio,trabajador){
+		return new Trabajo(persona = trabajador, horasDeTrabajo = trabajador.horasTrabajo(espacio), costo = trabajador.costoTrabajo(espacio))
+	}
+	
+	method costoTrabajo(espacio,trabajador) {
+		return trabajador.valorHora() * espacio.superficie()
+	}
 }
 
 //------------------------------------------ Instancias de Profesión
 
 object cerrajero inherits Profesion {
+	
 	override method puedeTrabajarEn(espacio) = !espacio.tieneVallado()
+	
 	override method producirEfecto(espacio) {
 		espacio.tieneVallado(true)
 	}
-	override method registrarTrabajo(espacio,trabajador) {
-		
-	} 
 	
+	method horasTrabajo(espacio) {
+		if(espacio.esGrande()){
+			return 5
+		}
+		return 3
+	}
 }
 
 object jardinero inherits Profesion {
+	
 	override method puedeTrabajarEn(espacio) = espacio.esVerde()
+	
 	override method producirEfecto(espacio) {
 		espacio.aumentarValuacion(espacio.valuacion() * 0.1)
 	}
-	override method registrarTrabajo(espacio,trabajador) {
-		
-	}
+	
+	method horasTrabajo(espacio) = espacio.superficie() /10
+	
+	override method costoTrabajo(espacio,trabajador) = 2500
 }
 
 object encargado inherits Profesion {
+	
 	override method puedeTrabajarEn(espacio) = espacio.esLimpiable()
+	
 	override method producirEfecto(espacio) {
 		espacio.aumentarValuacion(5000)
 	}
-	override method registrarTrabajo(espacio,trabajador) {
-		
-	}
-}
-
-//------------------------------------------ Trabajo
-
-class Trabajo {
 	
+	method horasTrabajo(espacio) = 8
 }
+
 
 
 
