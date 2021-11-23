@@ -95,6 +95,10 @@ class Profesion {
 	method costoTrabajo(espacio,trabajador) {
 		return trabajador.valorHora() * espacio.superficie()
 	}
+	
+	method esHeavy(espacio,trabajador) {
+		return self.costoTrabajo(espacio,trabajador) > 10000
+	}
 }
 
 //------------------------------------------ Instancias de Profesión
@@ -112,6 +116,10 @@ object cerrajero inherits Profesion {
 			return 5
 		}
 		return 3
+	}
+	
+	override method esHeavy(espacio,trabajador) {
+		return self.costoTrabajo(espacio,trabajador) > 10000 || super(espacio,trabajador)
 	}
 }
 
@@ -138,8 +146,6 @@ object encargado inherits Profesion {
 	
 	method horasTrabajo(espacio) = 8
 }
-
-
 
 
 
