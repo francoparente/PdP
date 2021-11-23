@@ -17,6 +17,17 @@ class EspacioUrbano {
 	method aumentarValuacion(aumento){
 		valuacion += aumento
 	}
+	
+	method esDeUsoIntensivo() {
+		return self.cantTrabajosHeavies() > 5
+	}
+	
+	method cantTrabajosHeavies() {
+		return self.trabajosRealizadosHeavies().size()
+	}
+	method trabajosRealizadosHeavies(){
+		return trabajosRealizados.filter({trabajo => trabajo.esHeavy()})
+	}
 }
 //------------------------------------------ Instancias - Espacio Urbano
 
@@ -57,6 +68,8 @@ class Trabajo {
 	var property horasDeTrabajo
 	var property costo
 	var property fecha = new Date()
+	
+	method esHeavy(espacio,trabajador) = persona.hizoTrabajoHeavy(self)
 }
 
 //------------------------------------------ Trabajador y Profesión
@@ -67,6 +80,10 @@ class Trabajador {
 	
 	method trabajaEn(espacio) {
 		profesion.trabajaEn(espacio,self)
+	}
+	
+	method hizoTrabajoHeavy(trabajo){
+		return profesion.esHeavy(trabajo)
 	}
 }
 
@@ -96,8 +113,8 @@ class Profesion {
 		return trabajador.valorHora() * espacio.superficie()
 	}
 	
-	method esHeavy(espacio,trabajador) {
-		return self.costoTrabajo(espacio,trabajador) > 10000
+	method esHeavy(trabajo){
+		return trabajo.costo() > 10000
 	}
 }
 
@@ -118,8 +135,8 @@ object cerrajero inherits Profesion {
 		return 3
 	}
 	
-	override method esHeavy(espacio,trabajador) {
-		return self.costoTrabajo(espacio,trabajador) > 10000 || super(espacio,trabajador)
+	override method esHeavy(trabajo) {
+		return trabajo.horasTrabajo() > 5 || super(trabajo)
 	}
 }
 
@@ -147,5 +164,14 @@ object encargado inherits Profesion {
 	method horasTrabajo(espacio) = 8
 }
 
+//------------------------------------------ Secretaría
+
+object secretaria {
+	var property espacios = #{}
+	
+	method espaciosUsoIntensivo() {
+		return espacios.filter({espacio => espacio.esDeUsoIntensivo()})
+	}
+}
 
 
