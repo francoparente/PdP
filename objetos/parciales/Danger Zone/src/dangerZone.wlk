@@ -4,10 +4,16 @@ class Mision {
 	var property peligrosidad
 	
 	method esCumplidaPor(asignado) {
-		if (!self.habilidadesRequeridas().all({habilidad => asignado.puedeUsarHabilidad(habilidad)}))
-			self.error("El asignado no puede usar las habilidades requeridas")
+		self.validarHabilidades(asignado)
 		asignado.salud(asignado.salud()-peligrosidad)
 	}
+	
+	method validarHabilidades(asignado) {
+		if (!self.reuneHabilidadesRequeridas(asignado))
+			self.error("El asignado no puede usar las habilidades requeridas")
+	}
+	method reuneHabilidadesRequeridas(asignado)
+		= habilidadesRequeridas.all({habilidad => asignado.puedeUsarHabilidad(habilidad)})
 }
 //----------------------------------------------------------Empleado
 class Empleado {
