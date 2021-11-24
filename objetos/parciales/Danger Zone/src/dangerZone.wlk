@@ -9,9 +9,7 @@ class Empleado {
 	
 	method saludCritica()
 	
-	method estaIncapacitado() {
-		return salud < self.saludCritica()
-	}
+	method estaIncapacitado() = salud < self.saludCritica()
 	
 	method puedeUsarHabilidad(habilidad) {
 		return self.tieneHabilidad(habilidad) && !self.estaIncapacitado()
@@ -30,12 +28,6 @@ class Empleado {
 		return 	mision.habilidadesRequeridas().foreach({habilidad => self.tieneHabilidad(habilidad)})
 				&& !self.estaIncapacitado()
 	}
-	
-	
-}
-
-class Habilidad {
-	
 }
 
 class Espia inherits Empleado {
@@ -52,7 +44,7 @@ class Espia inherits Empleado {
 class Oficinista inherits Empleado {
 	var property estrellas
 	
-	override method saludCritica() = 40-5* self.estrellas()
+	override method saludCritica() = 40-5* estrellas
 	
 	method ganarEstrella() {
 		estrellas++
