@@ -11,13 +11,9 @@ class Empleado {
 	
 	method estaIncapacitado() = salud < self.saludCritica()
 	
-	method puedeUsarHabilidad(habilidad) {
-		return self.tieneHabilidad(habilidad) && !self.estaIncapacitado()
-	}
+	method puedeUsarHabilidad(habilidad) = self.tieneHabilidad(habilidad) && !self.estaIncapacitado()
 	
-	method tieneHabilidad(habilidad) {
-		return habilidades.contains(habilidad)
-	}
+	method tieneHabilidad(habilidad) = habilidades.contains(habilidad)
 	
 	method cumplirMision(mision) {
 		if(self.puedeCumplirMision(mision))
