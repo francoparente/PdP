@@ -5,15 +5,23 @@ class Mision {
 	
 	method esCumplidaPor(asignado) {
 		self.validarHabilidades(asignado)
-		asignado.salud(asignado.salud()-peligrosidad)
+		asignado.recibirDanio(peligrosidad)
+		asignado.completarMision(self)
 	}
 	
 	method validarHabilidades(asignado) {
 		if (!self.reuneHabilidadesRequeridas(asignado))
 			self.error("El asignado no puede usar las habilidades requeridas")
 	}
+	
+	method enseniarHabilidades(empleado) {
+		self.habilidadesQueNoPosee(empleado).foreach({hab=>empleado.aprenderHabilidad(hab)})
+	}
+	
 	method reuneHabilidadesRequeridas(asignado)
 		= habilidadesRequeridas.all({habilidad => asignado.puedeUsarHabilidad(habilidad)})
+	
+	method habilidadesQueNoPosee(empleado) = habilidadesRequeridas.filter({hab => ! empleado.tieneHabilidad(hab)})
 }
 //----------------------------------------------------------Empleado
 class Empleado {
@@ -24,40 +32,40 @@ class Empleado {
 	method estaIncapacitado() = salud < puesto.saludCritica()
 	method puedeUsarHabilidad(habilidad) = self.tieneHabilidad(habilidad) && !self.estaIncapacitado()
 	method tieneHabilidad(habilidad) = habilidades.contains(habilidad)
-	/*
-	method cumplirMision(mision) {
-		if(self.puedeUsarHabRequeridas(mision))
-			salud -= mision.peligrosidad()
+	method recibirDanio(peligrosidad) { salud -= peligrosidad}
+	method estaVivo() = salud > 0
+	method finalizarMision(mision){
+		if(self.estaVivo())
+			self.completarMision(mision)
 	}
-	
-	method puedeUsarHabRequeridas(mision) {
-		return 	mision.habilidadesRequeridas().all({habilidad => self.puedeUsarHabilidad(habilidad)})
+	method completarMision(mision) {
+		puesto.completarMision(mision,self)
 	}
-	*/
+	method aprenderHabilidad(habilidad) {
+		habilidades.add(habilidad)
+	}
 }
 //----------------------------------------------------------Jefe
 class Jefe inherits Empleado {
 	const empleados = #{}
 	
 	override method tieneHabilidad(habilidad)
-		= super(habilidad) || self.algunEmpleadoTieneHabilidad(habilidad)
+		= super(habilidad) || self.algunEmpleadoPuedeUsarHabilidad(habilidad)
 	
-	method algunEmpleadoTieneHabilidad(habilidad)
+	method algunEmpleadoPuedeUsarHabilidad(habilidad)
 		= empleados.any({empleado => empleado.puedeUsarHabilidad(habilidad)})
 }
 //----------------------------------------------------------Puestos
-class Espia inherits Empleado {
+object espia {
 		
 	method saludCritica() = 15
 	
-	method aprenderHabilidad(habilidad,mision) {
-		if(mision.habilidadesRequeridas().foreach({unaHabilidad => self.habilidades().contains(unaHabilidad)}))
-			return self.habilidades().add(habilidad)
-		return 0
+	method completarMision(mision,empleado) {
+		mision.enseniarHabilidades(empleado)
 	}
 }
 
-class Oficinista inherits Empleado {
+class Oficinista {
 	var property estrellas
 	
 	method saludCritica() = 40-5* estrellas
@@ -66,12 +74,13 @@ class Oficinista inherits Empleado {
 		estrellas++
 	}
 	
-	override method cumplirMision(mision) {
-		self.ganarEstrella()
-	}
-	
 	method puedeSerEspia() {
 		return estrellas >= 3
+	}
+	
+	method completarMision(mision,empleado) {
+		self.ganarEstrella()
+		empleado.puesto(espia)
 	}
 }
 //----------------------------------------------------------Equipo
