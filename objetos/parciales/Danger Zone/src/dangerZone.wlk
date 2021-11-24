@@ -2,6 +2,12 @@
 class Mision {
 	const property habilidadesRequeridas = #{}
 	var property peligrosidad
+	
+	method esCumplidaPor(asignado) {
+		if (!self.habilidadesRequeridas().all({habilidad => asignado.puedeUsarHabilidad(habilidad)}))
+			self.error("El asignado no puede usar las habilidades requeridas")
+		asignado.salud(asignado.salud()-peligrosidad)
+	}
 }
 //----------------------------------------------------------Empleado
 class Empleado {
@@ -10,20 +16,18 @@ class Empleado {
 	var property puesto
 	
 	method estaIncapacitado() = salud < puesto.saludCritica()
-	
 	method puedeUsarHabilidad(habilidad) = self.tieneHabilidad(habilidad) && !self.estaIncapacitado()
-	
 	method tieneHabilidad(habilidad) = habilidades.contains(habilidad)
-	
+	/*
 	method cumplirMision(mision) {
-		if(self.puedeCumplirMision(mision))
+		if(self.puedeUsarHabRequeridas(mision))
 			salud -= mision.peligrosidad()
 	}
 	
-	method puedeCumplirMision(mision) {
-		return 	mision.habilidadesRequeridas().foreach({habilidad => self.tieneHabilidad(habilidad)})
-				&& !self.estaIncapacitado()
+	method puedeUsarHabRequeridas(mision) {
+		return 	mision.habilidadesRequeridas().all({habilidad => self.puedeUsarHabilidad(habilidad)})
 	}
+	*/
 }
 //----------------------------------------------------------Jefe
 class Jefe inherits Empleado {
