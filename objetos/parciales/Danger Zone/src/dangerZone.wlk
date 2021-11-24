@@ -1,15 +1,15 @@
+//----------------------------------------------------------Mision
 class Mision {
 	const property habilidadesRequeridas = #{}
 	var property peligrosidad
 }
-
+//----------------------------------------------------------Empleado
 class Empleado {
 	var property salud
 	const property habilidades = #{}
+	var property puesto
 	
-	method saludCritica()
-	
-	method estaIncapacitado() = salud < self.saludCritica()
+	method estaIncapacitado() = salud < puesto.saludCritica()
 	
 	method puedeUsarHabilidad(habilidad) = self.tieneHabilidad(habilidad) && !self.estaIncapacitado()
 	
@@ -25,10 +25,20 @@ class Empleado {
 				&& !self.estaIncapacitado()
 	}
 }
-
+//----------------------------------------------------------Jefe
+class Jefe inherits Empleado {
+	const empleados = #{}
+	
+	override method tieneHabilidad(habilidad)
+		= super(habilidad) || self.algunEmpleadoTieneHabilidad(habilidad)
+	
+	method algunEmpleadoTieneHabilidad(habilidad)
+		= empleados.any({empleado => empleado.puedeUsarHabilidad(habilidad)})
+}
+//----------------------------------------------------------Puestos
 class Espia inherits Empleado {
 		
-	override method saludCritica() = 15
+	method saludCritica() = 15
 	
 	method aprenderHabilidad(habilidad,mision) {
 		if(mision.habilidadesRequeridas().foreach({unaHabilidad => self.habilidades().contains(unaHabilidad)}))
@@ -40,7 +50,7 @@ class Espia inherits Empleado {
 class Oficinista inherits Empleado {
 	var property estrellas
 	
-	override method saludCritica() = 40-5* estrellas
+	method saludCritica() = 40-5* estrellas
 	
 	method ganarEstrella() {
 		estrellas++
@@ -54,15 +64,7 @@ class Oficinista inherits Empleado {
 		return estrellas >= 3
 	}
 }
-
-class Jefe inherits Empleado {
-	const empleados = #{}
-	
-	override method tieneHabilidad(habilidad) {
-		return super(habilidad) && empleados.foreach({empleado => empleado.habilidades().contains(habilidad)})
-	}
-}
-
+//----------------------------------------------------------Equipo
 class Equipo inherits Empleado{
 	const empleados = #{}
 	
