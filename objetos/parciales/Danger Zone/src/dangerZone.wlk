@@ -15,7 +15,7 @@ class Mision {
 	}
 	
 	method enseniarHabilidades(empleado) {
-		self.habilidadesQueNoPosee(empleado).foreach({hab=>empleado.aprenderHabilidad(hab)})
+		self.habilidadesQueNoPosee(empleado).forEach({hab=>empleado.aprenderHabilidad(hab)})
 	}
 	
 	method reuneHabilidadesRequeridas(asignado)
@@ -34,6 +34,7 @@ class Empleado {
 	method tieneHabilidad(habilidad) = habilidades.contains(habilidad)
 	method recibirDanio(peligrosidad) { salud -= peligrosidad}
 	method estaVivo() = salud > 0
+	
 	method finalizarMision(mision){
 		if(self.estaVivo())
 			self.completarMision(mision)
@@ -87,13 +88,18 @@ class Oficinista {
 class Equipo inherits Empleado{
 	const empleados = #{}
 	
-	override method cumplirMision(mision) {
-		if(self.puedeCumplirMision(mision))
-			empleados.foreach({empleado => empleado.salud(salud-mision.peligrosidad()/3)})
+	override method finalizarMision(mision){
+		empleados.forEach({empleado => empleado.finalizarMision(mision)})
 	}
 	
-	override method puedeCumplirMision(mision) {
-		return empleados.any({empleado => empleado.puedeCumplirMision(mision)})
+	override method recibirDanio(peligrosidad) {
+		empleados.forEach({empleado => empleado.recibirDanio(peligrosidad/3)})
 	}
+	
+	override method puedeUsarHabilidad(habilidad)
+		= self.algunEmpleadoPuedeUsarHabilidad(habilidad)
+	
+	method algunEmpleadoPuedeUsarHabilidad(habilidad)
+		= empleados.any({empleado => empleado.puedeUsarHabilidad(habilidad)})
 }
 
