@@ -1,5 +1,5 @@
 import asadito.*
-
+/*
 describe "punto 1 - pasame la sal" {
 	
 	var personaQuePide
@@ -13,4 +13,13 @@ describe "punto 1 - pasame la sal" {
 	test "si le piden a una persona un elemento, y esta no lo tiene cerca, no se lo pasa" {
 		assert.throwsException { personaQuePide.pedirElemento("sal",personaQueDa) }
 	}
+}
+*/
+
+test "Dada una persona vegetariana, si le ofrecen carne, no la acepta" {
+	//setup
+	const pechitoDeCerdo = new Comida(calorias = 270, esCarne = true)
+	
+	//post-condicion
+	assert.notThat(vegetariano.acepta(pechitoDeCerdo))
 }
