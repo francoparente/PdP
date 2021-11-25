@@ -32,6 +32,30 @@ class Persona {
 			throw new DomainException (message = "La persona no aceptó la comida")
 		return comidasIngeridas.add(comida)
 	}
+	
+	method comioAlgo() = not comidasIngeridas.isEmpty()
+	method laPasaBien() = self.comioAlgo() && self.laPasaBienPersonalmente()
+	method laPasaBienPersonalmente()
+}
+
+// -------------------------------------------- Instancias de persona
+
+object osky inherits Persona {
+	override method laPasaBienPersonalmente() = true
+}
+
+object moni inherits Persona {
+	//si se sentó en la mesa en la posición 1@1
+	override method laPasaBienPersonalmente() = true
+	//no lo sé, no lo hago
+}
+
+object facu inherits Persona {
+	override method laPasaBienPersonalmente() = comidasIngeridas.any({comida => comida.esCarne()})
+}
+
+object vero inherits Persona {
+	override method laPasaBienPersonalmente() = not elementosCercanos.size() > 3
 }
 
 // -------------------------------------------- Comida
