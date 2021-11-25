@@ -6,6 +6,7 @@ class Persona {
 	var property posicion
 	var property criterio
 	const property elementosCercanos = []
+	const property comidasIngeridas = []
 	
 	method tieneElementoCerca(elemento) = elementosCercanos.contains(elemento)
 	
@@ -23,6 +24,17 @@ class Persona {
 	method quitarElementos(elementos) {
 		elementosCercanos.removeAllSuchThat({elemento => elementos.contains(elemento)})
 	}
+	method estaPipon() = comidasIngeridas.any({comida => comida.esPesada()})
+	
+	
+}
+
+// -------------------------------------------- Criterio
+
+class Comida {
+	var property calorias
+	
+	method esPesada() = calorias > 500
 }
 
 // -------------------------------------------- Criterio
