@@ -6,8 +6,8 @@ describe "punto 1 - pasame la sal" {
 	var personaQueDa
 	
 	method initialize() {
-		personaQuePide = new Persona()
-		personaQueDa = new Persona()
+		personaQuePide = new Persona(posicion = 0, criterio = sordo)
+		personaQueDa = new Persona(posicion = 0, criterio = sordo)
 	}
 	
 	test "si le piden a una persona un elemento, y esta no lo tiene cerca, no se lo pasa" {
