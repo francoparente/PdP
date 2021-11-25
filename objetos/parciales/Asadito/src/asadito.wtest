@@ -1,0 +1,16 @@
+import asadito.*
+
+describe "punto 1 - pasame la sal" {
+	
+	var personaQuePide
+	var personaQueDa
+	
+	method initialize() {
+		personaQuePide = new Persona()
+		personaQueDa = new Persona()
+	}
+	
+	test "si le piden a una persona un elemento, y esta no lo tiene cerca, no se lo pasa" {
+		assert.throwsException { personaQuePide.pedirElemento("sal",personaQueDa) }
+	}
+}
