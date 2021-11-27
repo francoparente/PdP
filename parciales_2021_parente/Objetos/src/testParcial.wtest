@@ -1,0 +1,10 @@
+// ------------------------ PARCIAL OBJETOS
+
+describe "Parcial Objetos" {
+
+	test "testPrueba" {
+
+		assert.that(true)
+
+	}
+}
