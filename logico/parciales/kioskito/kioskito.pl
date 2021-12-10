@@ -1,3 +1,5 @@
+% --------------- Base de conocimiento
+
 atiende(dodain,lunes,(9,15)).
 atiende(dodain,miercoles,(9,15)).
 atiende(lucas,martes,(10,20)).
@@ -9,6 +11,8 @@ atiende(leoC,lunes,(14,18)).
 atiende(leoC,miercoles,(14,18)).
 atiende(martu,miercoles,(23,24)).
 
+% --------------- Punto 1
+
 atiende(vale,Dia,Hora) :-
     atiende(dodain,Dia,Hora).
 atiende(vale,Dia,Hora) :-
@@ -17,3 +21,19 @@ atiende(vale,Dia,Hora) :-
 % nadie hace el mismo horario que leoC.
 % maiu está pensando si hace el horario de 0 a 8 los martes y miércoles.
 % NO VA EN LA BASE DE CONOCIMIENTO POR EL PRINCIPIO DE UNIVERSO CERRADO.
+
+% --------------- Punto 2
+
+quienAtiende(Dia,Hora,Persona) :-
+    atiende(Persona,Dia,Hora).
+
+% --------------- Punto 3
+
+
+
+% --------------- Punto 4
+
+
+
+% --------------- Punto 5
+
