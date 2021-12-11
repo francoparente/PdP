@@ -36,6 +36,9 @@ quienAtiende(Persona,Dia,Hora) :-
 
 % --------------- Punto 3
 
+foreverAlone(Persona,Dia,Hora) :-
+    quienAtiende(Persona,Dia,Hora),
+    not((quienAtiende(Alguien,Dia,Hora), Alguien \= Persona)).
 
 
 % --------------- Punto 4
@@ -63,5 +66,17 @@ test(atiende_a_una_hora_determinada, true) :-
 
 test(dias_que_atiende_una_persona_en_un_horario_determinado, set(Dia = [lunes,miercoles,viernes])) :-
     quienAtiende(vale,Dia,10).
+
+test(persona_esta_forever_alone_en_hora_determinada_porque_atiende_sola, set(Persona = [lucas])) :-
+    foreverAlone(Persona,martes,19).
+% test(atiende_solo_en un horario_determinado, set(Persona = [juanFdS])) :-
+%     foreverAlone(Persona,jueves,10).
+test(persona_no_esta_forever_alone_si_no_atiende_en_hora_determinada, fail) :-
+    foreverAlone(martu,miercoles,22).
+% test(atiende_solo_en un horario_determinado, true) :-
+%     foreverAlone(martu,miercoles,23).
+% test(atiende_solo_en un horario_determinado, false) :-
+%     foreverAlone(dodain,lunes,10).
+
 
 :-end_tests(kioskito).
