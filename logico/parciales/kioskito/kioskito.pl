@@ -40,10 +40,24 @@ foreverAlone(Persona,Dia,Hora) :-
     quienAtiende(Persona,Dia,Hora),
     not((quienAtiende(Alguien,Dia,Hora), Alguien \= Persona)).
 
-
 % --------------- Punto 4
 
+persona(Persona) :-
+    atiende(Persona,_,_,_).
+dia(Dia) :-
+    atiende(_,Dia,_,_).
 
+posibilidadDeAtencion(Dia,Personas) :-
+    findall(Persona, distinct(Persona, quienAtiende(Persona,Dia,Hora)), PersonasPosibles),
+    combinar(PersonasPosibles, Personas).
+
+combinar([],[]).
+
+combinar([Persona|PersonasPosibles],[Persona|Personas]) :-
+    combinar(PersonasPosibles, Personas).
+
+combinar([_|PersonasPosibles], Personas) :-
+    combinar(PersonasPosibles, Personas).
 
 % --------------- Punto 5
 
@@ -78,5 +92,7 @@ test(persona_no_esta_forever_alone_si_no_atiende_en_hora_determinada, fail) :-
 % test(atiende_solo_en un horario_determinado, false) :-
 %     foreverAlone(dodain,lunes,10).
 
+test(posibilidades_de_atencion_en_un_dia_muestra_todas_las_combinaciones_posibles, set(Personas=[[],[dodain],[dodain,leoC],[dodain,leoC,martu],[dodain,leoC,martu,vale],[dodain,leoC,vale],[dodain,martu],[dodain,martu,vale],[dodain,vale],[leoC],[leoC,martu],[leoC,martu,vale],[leoC,vale],[martu],[martu,vale],[vale]])) :-
+    posibilidadDeAtencion(miercoles,Personas).
 
 :-end_tests(kioskito).
