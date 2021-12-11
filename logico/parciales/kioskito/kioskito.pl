@@ -61,6 +61,33 @@ combinar([_|PersonasPosibles], Personas) :-
 
 % --------------- Punto 5
 
+venta(dodain,fecha(lunes,10,8), [golosinas(1200), cigarrillos([jockey]), golosina(50)]).
+venta(dodain,fecha(miercoles,12,8), [bebidas(true,8), bebidas(false,1), golosinas(10)]).
+venta(martu,fecha(miercoles,12,8), [golosinas(1000),cigarrillos([chesterfield,colorado,parisiennes])]).
+venta(lucas,fecha(martes,11,8), [golosinas(600)]).
+venta(lucas,fecha(martes,18,8), [bebidas(false,2),cigarrillos([derby])]).
+
+esImportante(golosinas(Valor)) :-
+    Valor > 100.
+
+esImportante(cigarrillos(Marcas)) :-
+    length(Marcas, Cantidad),
+    Cantidad > 2.
+
+esImportante(bebidas(true,_)).
+
+esImportante(bebidas(_,Cantidad)) :-
+    Cantidad > 5.
+
+personaSuertuda(Persona) :-
+    vendedora(Persona),
+    forall(venta(Persona,_,[Venta|_]), esImportante(Venta)).
+
+vendedora(Persona) :-
+    venta(Persona,_,_).
+
+
+
 
 
 % --------------- Tests
@@ -94,5 +121,8 @@ test(persona_no_esta_forever_alone_si_no_atiende_en_hora_determinada, fail) :-
 
 test(posibilidades_de_atencion_en_un_dia_muestra_todas_las_combinaciones_posibles, set(Personas=[[],[dodain],[dodain,leoC],[dodain,leoC,martu],[dodain,leoC,martu,vale],[dodain,leoC,vale],[dodain,martu],[dodain,martu,vale],[dodain,vale],[leoC],[leoC,martu],[leoC,martu,vale],[leoC,vale],[martu],[martu,vale],[vale]])) :-
     posibilidadDeAtencion(miercoles,Personas).
+
+test(personas_suertudas, set(Persona=[martu,dodain])) :-
+    personaSuertuda(Persona).
 
 :-end_tests(kioskito).
