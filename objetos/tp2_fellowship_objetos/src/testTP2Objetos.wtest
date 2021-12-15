@@ -8,7 +8,7 @@ describe "TEST" {
 	
 	const unParanoico = new MensajerxEstandar(sector = enviosRapidos, tipoMensajero = paranoico)
 	const unAlegre = new MensajerxEstandar(sector = enviosEstandares, tipoMensajero = new Alegre(gradoAlegria= 12))
-	const unSerio = new MensajerxEstandar(sector = enviosVIP, tipoMensajero = serio)
+	const unSerio = new MensajerxEstandar(sector = enviosVIP, tipoMensajero = new Serio())
 	
 	const unMensajeCifrado = new MensajeCifrado(mensaje=" mensaje no me la container")
 	const unMensajeElocuente = new MensajeElocuente(mensaje="oye como va")

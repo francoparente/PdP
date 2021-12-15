@@ -2,7 +2,7 @@
 class MensajerxEstandar {
 
 	var property mensajesEnviados = []
-	var property sector = new Sector(costoDe = 0)
+	var property sector = new Sector()
 
 	var property tipoMensajero = paranoico // asumimos q por default todos son paranoicos
 
@@ -101,7 +101,7 @@ object random {
 // --------------------- Sectores
 class Sector {
 
-	var property costoDe
+	var property costoDe = 0
 
 }
 
@@ -113,7 +113,7 @@ class Mensaje {
 	var property mensaje
 	var property costoDelMensaje = 10 //dejo este valor por default, pero creo que se deberia instanciar al crear un mensaje. 
 
-	method costoDe() = costoDelMensaje + agenciaDeMensajeria.quienEnvia(mensaje).costoDe(mensaje) //sumo el costo del mensaje con el costo que dice el que debe enviarlo
+	method costoDe() = costoDelMensaje + agenciaDeMensajeria.costoDe(mensaje) //sumo el costo del mensaje con el costo que dice el que debe enviarlo
 	
 	
 	method gananciaMensaje() {
@@ -150,6 +150,8 @@ class MensajeElocuente inherits Mensaje {
 	method ganancia() {
 		return self.gradoElocuencia() * self.gananciaMensaje() 
 	}
+	
+	method entregar() = mensaje
 
 }
 
@@ -173,15 +175,18 @@ object agenciaDeMensajeria {
 
 	method puedenEnviar(mensaje) = mensajeros.filter({ mensajero => mensajero.puedeEnviar(mensaje) })
 	
-	
-	
-	method enviarMensaje(mensaje) {
+	method validarMensaje(mensaje){
 		if (mensaje.isEmpty()) {
 			throw new DomainException(message = "La operacion no se puede realizar: mensaje vacio")
 		}
 		if (self.puedenEnviar(mensaje).isEmpty()) {
 			throw new DomainException(message = "La operacion no se puede realizar: nadie puede enviarlo")
 		}
+	
+	}
+	
+	method enviarMensaje(mensaje) {
+		self.validarMensaje(mensaje)
 		historial.add(new ElementoHistorial(mensajeEnviado = new Mensaje(mensaje = mensaje), mensajeroAsignado = self.quienEnvia(mensaje))) // Se agrega registro al historial. La fecha la setea la clase.
 		self.quienEnvia(mensaje).enviar(mensaje) // Se envía el mensaje.
 	}
@@ -192,6 +197,7 @@ object agenciaDeMensajeria {
 
 	method chasquiQuilla() = self.historialUltimoMes().max({ elementoHistorial => elementoHistorial.mensajeroAsignado().cantidadMensajesMes(self.historialUltimoMes()) }).mensajeroAsignado()
 
+	method costoDe(mensaje) = self.quienEnvia(mensaje).costoDe(mensaje)
 }
 
 class ElementoHistorial {
@@ -239,16 +245,16 @@ class Alegre {
 
 }
 
-object serio {
+class Serio {
 
-	var property contador = -1 // lo ponemos en menos uno porque se incrementa al incio del metodo
+	var property mensajesEnviados = [] 
 
 	method definirMensaje(unMensaje) {
-		contador += 1
-		if (contador >= 3) {
-			return new MensajeCifrado(mensaje = unMensaje)
+		mensajesEnviados.add(unMensaje)
+		if (mensajesEnviados.take(3).contains(unMensaje)) {
+			return new MensajeElocuente(mensaje = unMensaje)
 		}
-		return new MensajeElocuente(mensaje = "")
+		return new MensajeCifrado(mensaje = unMensaje)
 	}
 
 }
