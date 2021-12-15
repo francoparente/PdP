@@ -1,0 +1,592 @@
+____Parte 1: Las materias____
+
+
+1)
+    ?- esPesada(Materia).
+    Materia = analisisDeSistemas ;
+    Materia = disenioDeSistemas ;
+    Materia = administracionDeRecursos ;
+    Materia = proyectoFinal ;
+    Materia = algoritmosYEstructurasDeDatos ;
+    Materia = arquitecturaDeComputadores ;
+    Materia = sintaxisYSemanticaDeLosLenguajes .
+
+2a)
+    ?- esInicial(Cual).
+    Cual = analisisMatematicoI ;
+    Cual = algebraYGAnalitica ;
+    Cual = matematicaDiscreta ;
+    Cual = sistemasYOrganizaciones ;
+    Cual = algoritmosYEstructurasDeDatos ;
+    Cual = arquitecturaDeComputadores ;
+    Cual = ingenieriaYSociedad ;
+    Cual = quimica ;
+    Cual = fisicaI ;
+    Cual = inglesI ;
+    Cual = sistemasDeRepresentacion .
+
+    ?- esInicial(matematicaDiscreta).
+    true .
+    
+2b)
+    ?- materiasNecesarias(probabilidadYEstadistica, Cual).
+    Cual = [analisisMatematicoI, algebraYGAnalitica].
+
+    ?- materiasNecesarias(investigacionOperativa, Cual).   
+    Cual = [probabilidadYEstadistica, matematicaSuperior, analisisMatematicoI, algebraYGAnalitica, analisisMatematicoII].
+
+    ?- materiasNecesarias(analisisMatematicoI, Cual).    
+    Cual = [].
+
+2c)
+    ?- materiasQueHabilita(Materia,Materias).
+    Materia = analisisMatematicoI,
+    Materias = [analisisMatematicoII, probabilidadYEstadistica, fisicaII, matematicaSuperior, redesDeInformacion, investigacionOperativa, simulacion, ingenieriaDeSoftware, teoriaDeControl|...] ;
+    Materia = algebraYGAnalitica,
+    Materias = [analisisMatematicoII, probabilidadYEstadistica, matematicaSuperior, redesDeInformacion, investigacionOperativa, simulacion, ingenieriaDeSoftware, teoriaDeControl, comunicaciones|...] ;
+    ...
+    ?- materiasQueHabilita(fisicaI,Materias).
+    Materias = [fisicaII, redesDeInformacion, comunicaciones, proyectoFinal].
+
+
+____Parte 2: Cursada____
+
+
+Requerimientos base - a)
+
+    ?- anioDeCursada(Alumno,Materia,AnioAcademico).
+    Alumno = juana,
+    Materia = analisisMatematicoI,
+    AnioAcademico = 2020 ;
+    Alumno = ana,
+    Materia = analisisMatematicoI,
+    AnioAcademico = 2020 ;
+    ...
+
+    ?- anioDeCursada(juana,paradigmasDeProgramacion,AnioAcademico).
+    AnioAcademico = 2014 ;
+    AnioAcademico = 2014 ;
+
+    El año 2014 figura dos veces porque una corresponde a la cursada cuatrimestral y la otra corresponde a la cursada de verano que hizo juana al año siguiente.
+
+Requerimientos base - b)
+    ?- aproboCursada(Quien, Materia).
+    Quien = juana,
+    Materia = paradigmasDeProgramacion ;
+    Quien = juana,
+    Materia = paradigmasDeProgramacion ;
+    Quien = juana,
+    Materia = analisisMatematicoI ;
+    Quien = juana,
+    Materia = algebraYGAnalitica ;
+    Quien = tarciso,
+    Materia = paradigmasDeProgramacion ;
+    Quien = juana,
+    Materia = paradigmasDeProgramacion ;
+    Quien = juana,
+    Materia = paradigmasDeProgramacion ;
+    Quien = juana,
+    Materia = analisisMatematicoI ;
+    Quien = juana,
+    Materia = algebraYGAnalitica ;
+    Quien = ana,
+    Materia = fisicaI ;
+    Quien = ana,
+    Materia = analisisMatematicoI ;
+    Quien = ana,
+    Materia = ingenieriaYSociedad ;
+    Quien = ana,
+    Materia = sistemasYOrganizaciones ;
+    Quien = ana,
+    Materia = arquitecturaDeComputadores ;
+    Quien = ana,
+    Materia = algebraYGAnalitica ;
+    Quien = ana,
+    Materia = sistemasDeRepresentacion ;
+    Quien = ana,
+    Materia = fisicaI ;
+    Quien = ana,
+    Materia = analisisMatematicoI ;
+    Quien = ana,
+    Materia = ingenieriaYSociedad ;
+    Quien = ana,
+    Materia = sistemasYOrganizaciones ;
+    Quien = ana,
+    Materia = arquitecturaDeComputadores ;
+    Quien = ana,
+    Materia = algebraYGAnalitica ;
+    Quien = ana,
+    Materia = sistemasDeRepresentacion ;
+    Quien = ana,
+    Materia = fisicaI ;
+    Quien = ana,
+    Materia = analisisMatematicoI ;
+    Quien = ana,
+    Materia = ingenieriaYSociedad ;
+    Quien = ana,
+    Materia = sistemasYOrganizaciones ;
+    Quien = ana,
+    Materia = arquitecturaDeComputadores ;
+    Quien = ana,
+    Materia = algebraYGAnalitica ;
+    Quien = ana,
+    Materia = sistemasDeRepresentacion ;
+    Quien = juana,
+    Materia = paradigmasDeProgramacion ;
+    Quien = juana,
+    Materia = paradigmasDeProgramacion ;
+    Quien = juana,
+    Materia = analisisMatematicoI ;
+    Quien = juana,
+    Materia = algebraYGAnalitica ;
+    Quien = juana,
+    Materia = paradigmasDeProgramacion ;
+    Quien = juana,
+    Materia = paradigmasDeProgramacion ;
+    Quien = juana,
+    Materia = analisisMatematicoI ;
+    Quien = juana,
+    Materia = algebraYGAnalitica ;
+    Quien = jazmin,
+    Materia = fisicaI ;
+    Quien = ana,
+    Materia = fisicaI ;
+    Quien = ana,
+    Materia = analisisMatematicoI ;
+    Quien = ana,
+    Materia = ingenieriaYSociedad ;
+    Quien = ana,
+    Materia = sistemasYOrganizaciones ;
+    Quien = ana,
+    Materia = arquitecturaDeComputadores ;
+    Quien = ana,
+    Materia = algebraYGAnalitica ;
+    Quien = ana,
+    Materia = sistemasDeRepresentacion ;
+    Quien = ana,
+    Materia = fisicaI ;
+    Quien = ana,
+    Materia = analisisMatematicoI ;
+    Quien = ana,
+    Materia = ingenieriaYSociedad ;
+    Quien = ana,
+    Materia = sistemasYOrganizaciones ;
+    Quien = ana,
+    Materia = arquitecturaDeComputadores ;
+    Quien = ana,
+    Materia = algebraYGAnalitica ;
+    Quien = ana,
+    Materia = sistemasDeRepresentacion ;
+    Quien = ana,
+    Materia = fisicaI ;
+    Quien = ana,
+    Materia = analisisMatematicoI ;
+    Quien = ana,
+    Materia = ingenieriaYSociedad ;
+    Quien = ana,
+    Materia = sistemasYOrganizaciones ;
+    Quien = ana,
+    Materia = arquitecturaDeComputadores ;
+    Quien = ana,
+    Materia = algebraYGAnalitica ;
+    Quien = ana,
+    Materia = sistemasDeRepresentacion ;
+    Quien = ana,
+    Materia = fisicaI ;
+    Quien = ana,
+    Materia = analisisMatematicoI ;
+    Quien = ana,
+    Materia = ingenieriaYSociedad ;
+    Quien = ana,
+    Materia = sistemasYOrganizaciones ;
+    Quien = ana,
+    Materia = arquitecturaDeComputadores ;
+    Quien = ana,
+    Materia = algebraYGAnalitica ;
+    Quien = ana,
+    Materia = sistemasDeRepresentacion ;
+    Quien = ana,
+    Materia = fisicaI ;
+    Quien = ana,
+    Materia = analisisMatematicoI ;
+    Quien = ana,
+    Materia = ingenieriaYSociedad ;
+    Quien = ana,
+    Materia = sistemasYOrganizaciones ;
+    Quien = ana,
+    Materia = arquitecturaDeComputadores ;
+    Quien = ana,
+    Materia = algebraYGAnalitica ;
+    Quien = ana,
+    Materia = sistemasDeRepresentacion.
+
+Requerimientos base - c)
+    ?- recurso(Quien,Materia).
+    Quien = juana,
+    Materia = paradigmasDeProgramacion ;
+    Quien = juana,
+    Materia = paradigmasDeProgramacion ;
+
+Desempeño academico:
+    ?- desempenio(juana,paradigmasDeProgramacion,Desempenio).
+    Desempenio = 14.
+
+    ?- desempenio(Quien,Materia,Desem).
+    Quien = juana,
+    Materia = paradigmasDeProgramacion,
+    Desem = 14 ;
+    Quien = juana,
+    Materia = paradigmasDeProgramacion,
+    Desem = 14 ;
+    Quien = juana,
+    ...
+
+
+____Parte 3: Personas que estudian____
+
+
+a)
+    ?- esProcrastinadora(Alumno).
+    Alumno = jazmin ;
+
+    ?- esProcrastinadora(ana).    
+    false.
+
+    ?- esProcrastinadora(jazmin). 
+    true.  
+
+b)
+    ?- esFiltro(Cual).
+    Cual = quimica ;
+    Cual = analisisDeSistemas ;
+
+c)
+    esTrivial(Cual).
+    Cual = paradigmasDeProgramacion ;
+    Cual = paradigmasDeProgramacion ;
+    Cual = paradigmasDeProgramacion ;
+    Cual = fisicaI ;
+    Cual = analisisMatematicoI ;
+    Cual = analisisMatematicoI ;
+    Cual = algebraYGAnalitica ;
+    Cual = fisicaI ;
+    Cual = ingenieriaYSociedad ;
+    Cual = sistemasYOrganizaciones ;
+    Cual = arquitecturaDeComputadores ;
+    Cual = algebraYGAnalitica ;
+    Cual = sistemasDeRepresentacion.
+
+
+____Punto 4: Juego de cursadas____
+
+
+a)
+    ?- queCursar(Alumno, Materias).
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, analisisDeSistemas, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, analisisDeSistemas, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, analisisDeSistemas, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, analisisDeSistemas, proyectoFinal] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, disenioDeSistemas, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, disenioDeSistemas, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, disenioDeSistemas, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, disenioDeSistemas, proyectoFinal] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, administracionDeRecursos, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, administracionDeRecursos, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, administracionDeRecursos, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, administracionDeRecursos, proyectoFinal] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, proyectoFinal, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, proyectoFinal, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, proyectoFinal, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, proyectoFinal, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, proyectoFinal] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, algoritmosYEstructurasDeDatos, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, algoritmosYEstructurasDeDatos, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, algoritmosYEstructurasDeDatos, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, algoritmosYEstructurasDeDatos, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, algoritmosYEstructurasDeDatos, proyectoFinal] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, arquitecturaDeComputadores, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, arquitecturaDeComputadores, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, arquitecturaDeComputadores, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, arquitecturaDeComputadores, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, arquitecturaDeComputadores, proyectoFinal] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, sintaxisYSemanticaDeLosLenguajes, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, sintaxisYSemanticaDeLosLenguajes, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, sintaxisYSemanticaDeLosLenguajes, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, sintaxisYSemanticaDeLosLenguajes, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [paradigmasDeProgramacion, sintaxisYSemanticaDeLosLenguajes, proyectoFinal] ;
+    Alumno = franco,
+    Materias = [fisicaI, analisisDeSistemas, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [fisicaI, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [fisicaI, analisisDeSistemas, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [fisicaI, analisisDeSistemas, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [fisicaI, analisisDeSistemas, proyectoFinal] ;
+    Alumno = franco,
+    Materias = [fisicaI, disenioDeSistemas, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [fisicaI, disenioDeSistemas, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [fisicaI, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [fisicaI, disenioDeSistemas, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [fisicaI, disenioDeSistemas, proyectoFinal] ;
+    Alumno = franco,
+    Materias = [fisicaI, administracionDeRecursos, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [fisicaI, administracionDeRecursos, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [fisicaI, administracionDeRecursos, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [fisicaI, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [fisicaI, administracionDeRecursos, proyectoFinal] ;
+    Alumno = franco,
+    Materias = [fisicaI, proyectoFinal, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [fisicaI, proyectoFinal, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [fisicaI, proyectoFinal, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [fisicaI, proyectoFinal, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [fisicaI, proyectoFinal] ;
+    Alumno = franco,
+    Materias = [fisicaI, algoritmosYEstructurasDeDatos, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [fisicaI, algoritmosYEstructurasDeDatos, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [fisicaI, algoritmosYEstructurasDeDatos, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [fisicaI, algoritmosYEstructurasDeDatos, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [fisicaI, algoritmosYEstructurasDeDatos, proyectoFinal] ;
+    Alumno = franco,
+    Materias = [fisicaI, arquitecturaDeComputadores, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [fisicaI, arquitecturaDeComputadores, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [fisicaI, arquitecturaDeComputadores, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [fisicaI, arquitecturaDeComputadores, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [fisicaI, arquitecturaDeComputadores, proyectoFinal] ;
+    Alumno = franco,
+    Materias = [fisicaI, sintaxisYSemanticaDeLosLenguajes, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [fisicaI, sintaxisYSemanticaDeLosLenguajes, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [fisicaI, sintaxisYSemanticaDeLosLenguajes, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [fisicaI, sintaxisYSemanticaDeLosLenguajes, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [fisicaI, sintaxisYSemanticaDeLosLenguajes, proyectoFinal] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, analisisDeSistemas, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, analisisDeSistemas, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, analisisDeSistemas, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, analisisDeSistemas, proyectoFinal] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, disenioDeSistemas, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, disenioDeSistemas, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, disenioDeSistemas, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, disenioDeSistemas, proyectoFinal] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, administracionDeRecursos, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, administracionDeRecursos, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, administracionDeRecursos, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, administracionDeRecursos, proyectoFinal] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, proyectoFinal, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, proyectoFinal, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, proyectoFinal, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, proyectoFinal, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, proyectoFinal] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, algoritmosYEstructurasDeDatos, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, algoritmosYEstructurasDeDatos, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, algoritmosYEstructurasDeDatos, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, algoritmosYEstructurasDeDatos, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, algoritmosYEstructurasDeDatos, proyectoFinal] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, arquitecturaDeComputadores, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, arquitecturaDeComputadores, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, arquitecturaDeComputadores, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, arquitecturaDeComputadores, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, arquitecturaDeComputadores, proyectoFinal] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, sintaxisYSemanticaDeLosLenguajes, sistemasYOrganizaciones] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, sintaxisYSemanticaDeLosLenguajes, analisisDeSistemas] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, sintaxisYSemanticaDeLosLenguajes, disenioDeSistemas] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, sintaxisYSemanticaDeLosLenguajes, administracionDeRecursos] ;
+    Alumno = franco,
+    Materias = [sistemasOperativos, sintaxisYSemanticaDeLosLenguajes, proyectoFinal] ;
+
+b)
+    ?- materiasParaCursar(juana, Materias).
+    Materias = [matematicaDiscreta, sistemasYOrganizaciones, algoritmosYEstructurasDeDatos, arquitecturaDeComputadores, ingenieriaYSociedad, quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica|...] ;
+    Materias = [sistemasYOrganizaciones, algoritmosYEstructurasDeDatos, arquitecturaDeComputadores, ingenieriaYSociedad, quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI|...] ;
+    Materias = [algoritmosYEstructurasDeDatos, arquitecturaDeComputadores, ingenieriaYSociedad, quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI, sistemasDeRepresentacion|...] ;
+    Materias = [arquitecturaDeComputadores, ingenieriaYSociedad, quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI, sistemasDeRepresentacion, inglesII] ;
+    Materias = [ingenieriaYSociedad, quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI, sistemasDeRepresentacion, inglesII] ;
+    Materias = [quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI, sistemasDeRepresentacion, inglesII] ;
+    Materias = [fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI, sistemasDeRepresentacion, inglesII] ;
+    Materias = [analisisMatematicoII, probabilidadYEstadistica, inglesI, sistemasDeRepresentacion, inglesII] ;
+    Materias = [probabilidadYEstadistica, inglesI, sistemasDeRepresentacion, inglesII] ;
+    Materias = [inglesI, sistemasDeRepresentacion, inglesII] ;
+    Materias = [sistemasDeRepresentacion, inglesII] ;
+    Materias = [inglesII] ;
+    Materias = [] ;
+    ...
+
+    ?- materiasParaCursar(juana, Materias).
+    Materias = [matematicaDiscreta, sistemasYOrganizaciones, algoritmosYEstructurasDeDatos, arquitecturaDeComputadores, ingenieriaYSociedad, quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica|...] ;
+    Materias = [sistemasYOrganizaciones, algoritmosYEstructurasDeDatos, arquitecturaDeComputadores, ingenieriaYSociedad, quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI|...] ;
+    Materias = [algoritmosYEstructurasDeDatos, arquitecturaDeComputadores, ingenieriaYSociedad, quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI, sistemasDeRepresentacion|...] ;
+    Materias = [arquitecturaDeComputadores, ingenieriaYSociedad, quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI, sistemasDeRepresentacion, inglesII] ;
+    Materias = [ingenieriaYSociedad, quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI, sistemasDeRepresentacion, inglesII] ;
+    Materias = [quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI, sistemasDeRepresentacion, inglesII] ;
+    Materias = [fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI, sistemasDeRepresentacion, inglesII] ;
+    Materias = [analisisMatematicoII, probabilidadYEstadistica, inglesI, sistemasDeRepresentacion, inglesII] ;
+    Materias = [probabilidadYEstadistica, inglesI, sistemasDeRepresentacion, inglesII] ;
+    Materias = [inglesI, sistemasDeRepresentacion, inglesII] ;
+    Materias = [sistemasDeRepresentacion, inglesII] ;
+    Materias = [inglesII] ;
+    Materias = [] ;
+    Materias = [matematicaDiscreta, sistemasYOrganizaciones, algoritmosYEstructurasDeDatos, arquitecturaDeComputadores, ingenieriaYSociedad, quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica|...] ;
+    Materias = [sistemasYOrganizaciones, algoritmosYEstructurasDeDatos, arquitecturaDeComputadores, ingenieriaYSociedad, quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI|...] ;
+    Materias = [algoritmosYEstructurasDeDatos, arquitecturaDeComputadores, ingenieriaYSociedad, quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI, sistemasDeRepresentacion|...] ;
+    Materias = [arquitecturaDeComputadores, ingenieriaYSociedad, quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI, sistemasDeRepresentacion, inglesII] .
+
+    ?- materiasParaCursar(Persona, Materias).
+    Persona = juana,
+    Materias = [matematicaDiscreta, sistemasYOrganizaciones, algoritmosYEstructurasDeDatos, arquitecturaDeComputadores, ingenieriaYSociedad, quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica|...] ;
+    Persona = juana,
+    Materias = [sistemasYOrganizaciones, algoritmosYEstructurasDeDatos, arquitecturaDeComputadores, ingenieriaYSociedad, quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI|...] ;
+    Persona = juana,
+    Materias = [algoritmosYEstructurasDeDatos, arquitecturaDeComputadores, ingenieriaYSociedad, quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI, sistemasDeRepresentacion|...] ;
+    Persona = juana,
+    Materias = [arquitecturaDeComputadores, ingenieriaYSociedad, quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI, sistemasDeRepresentacion, inglesII] ;
+    Persona = juana,
+    Materias = [ingenieriaYSociedad, quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI, sistemasDeRepresentacion, inglesII] ;
+    Persona = juana,
+    Materias = [quimica, fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI, sistemasDeRepresentacion, inglesII] ;
+    Persona = juana,
+    Materias = [fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI, sistemasDeRepresentacion, inglesII] ;
+    Persona = juana,
+    Materias = [analisisMatematicoII, probabilidadYEstadistica, inglesI, sistemasDeRepresentacion, inglesII] ;
+    Persona = juana,
+    Materias = [probabilidadYEstadistica, inglesI, sistemasDeRepresentacion, inglesII] ;
+    Persona = juana,
+    Materias = [inglesI, sistemasDeRepresentacion, inglesII] ;
+    Persona = juana,
+    Materias = [sistemasDeRepresentacion, inglesII] ;
+    Persona = juana,
+    Materias = [inglesII] ;
+    Persona = juana,
+    Materias = [] ;
+    Persona = tarciso,
+    Materias = [analisisMatematicoI, algebraYGAnalitica, matematicaDiscreta, sistemasYOrganizaciones, algoritmosYEstructurasDeDatos, arquitecturaDeComputadores, ingenieriaYSociedad, quimica, fisicaI|...] ;
+    Persona = tarciso,
+    Materias = [algebraYGAnalitica, matematicaDiscreta, sistemasYOrganizaciones, algoritmosYEstructurasDeDatos, arquitecturaDeComputadores, ingenieriaYSociedad, quimica, fisicaI, inglesI|...] ;
+    Persona = tarciso,
+    Materias = [matematicaDiscreta, sistemasYOrganizaciones, algoritmosYEstructurasDeDatos, arquitecturaDeComputadores, ingenieriaYSociedad, quimica, fisicaI, inglesI, sistemasDeRepresentacion|...]
+    ...
+
+c)
+    ?- materiasTranqui(ana,Materias).   
+    Materias = [matematicaDiscreta, algoritmosYEstructurasDeDatos, analisisMatematicoII, probabilidadYEstadistica, inglesI, fisicaII, inglesII] ;
+    Materias = [matematicaDiscreta, algoritmosYEstructurasDeDatos, analisisMatematicoII, probabilidadYEstadistica, inglesI, fisicaII] ;
+    Materias = [matematicaDiscreta, algoritmosYEstructurasDeDatos, analisisMatematicoII, probabilidadYEstadistica, inglesI, inglesII] ;
+    Materias = [matematicaDiscreta, algoritmosYEstructurasDeDatos, analisisMatematicoII, probabilidadYEstadistica, inglesI] ;
+    Materias = [matematicaDiscreta, algoritmosYEstructurasDeDatos, analisisMatematicoII, probabilidadYEstadistica, fisicaII, inglesII] ;
+    Materias = [matematicaDiscreta, algoritmosYEstructurasDeDatos, analisisMatematicoII, probabilidadYEstadistica, fisicaII] ;
+    Materias = [matematicaDiscreta, algoritmosYEstructurasDeDatos, analisisMatematicoII, probabilidadYEstadistica, inglesII] ;
+    Materias = [matematicaDiscreta, algoritmosYEstructurasDeDatos, analisisMatematicoII, probabilidadYEstadistica] ;
+    Materias = [matematicaDiscreta, algoritmosYEstructurasDeDatos, analisisMatematicoII, inglesI, fisicaII, inglesII] ;
+    Materias = [matematicaDiscreta, algoritmosYEstructurasDeDatos, analisisMatematicoII, inglesI, fisicaII] ;
+    Materias = [matematicaDiscreta, algoritmosYEstructurasDeDatos, analisisMatematicoII, inglesI, inglesII] ;
+    Materias = [matematicaDiscreta, algoritmosYEstructurasDeDatos, analisisMatematicoII, inglesI] ;
+    Materias = [matematicaDiscreta, algoritmosYEstructurasDeDatos, analisisMatematicoII, fisicaII, inglesII] ;
+    Materias = [matematicaDiscreta, algoritmosYEstructurasDeDatos, analisisMatematicoII, fisicaII] ;
+    Materias = [matematicaDiscreta, algoritmosYEstructurasDeDatos, analisisMatematicoII, inglesII] ;
+    Materias = [matematicaDiscreta, algoritmosYEstructurasDeDatos, analisisMatematicoII] ;
+    ...
+
+    ?- materiasTranqui(Persona,Materias). 
+    Persona = juana,
+    Materias = [matematicaDiscreta, sistemasYOrganizaciones, algoritmosYEstructurasDeDatos, arquitecturaDeComputadores, ingenieriaYSociedad, fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI|...] ;
+    Persona = juana,
+    Materias = [matematicaDiscreta, sistemasYOrganizaciones, algoritmosYEstructurasDeDatos, arquitecturaDeComputadores, ingenieriaYSociedad, fisicaI, analisisMatematicoII, probabilidadYEstadistica, inglesI|...] ;
+    ...

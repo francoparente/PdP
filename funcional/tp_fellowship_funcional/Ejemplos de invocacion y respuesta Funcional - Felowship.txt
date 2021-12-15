@@ -1,0 +1,163 @@
+Ejemplos de invocación y respuesta punto 1:
+
+    Punto A:
+        *Main> coeficienteDeSatisfaccion persona1
+        2525
+        *Main> coeficienteDeSatisfaccion persona2
+        200
+        *Main> coeficienteDeSatisfaccion persona3
+        25
+
+    Punto B:
+        *Main> gradoDeAmbicion persona1
+        202
+        *Main> gradoDeAmbicion persona2
+        52
+        *Main> gradoDeAmbicion persona3
+        2
+
+
+
+Ejemplos de invocación y respuesta punto 2:
+
+    Punto A:
+        *Main> nombreLargo persona2
+        True
+        *Main> nombreLargo persona3
+        False
+
+    Punto B:
+        *Main> personaSuertuda persona4
+        False
+        *Main> personaSuertuda persona5
+        True
+
+    Punto C:
+        *Main> nombreLindo persona4
+        False
+        *Main> nombreLindo persona5
+        True
+
+
+
+Ejemplos de invocación y respuesta punto 3:
+
+    Punto A:
+        *Main> recibirseDe "Sistemas" persona1 
+        Persona {edad = 25, sueños = [<function>,<function>], nombre = "Guadalupe", felicidonios = 8101, habilidades = ["Sistemas"]}
+
+    Punto B:
+        *Main> viajarA ["Paris", "Moscu"] persona2         
+        Persona {edad = 27, sueños = [<function>,<function>], nombre = "Maximiliano", felicidonios = 300, habilidades = ["Bailar"]}
+
+    Punto C:
+        *Main> enamorarseDe persona4 persona3
+        Persona {edad = 89, sueños = [<function>], nombre = "Evangelina", felicidonios = 64, habilidades = ["Bailar","Estudiar"]}
+
+    Implementaciones comunes:
+        *Main> todoSigueIgual persona4
+        Persona {edad = 26, sueños = [<function>], nombre = "Ariel", felicidonios = 14, habilidades = ["Bailar"]}
+        *Main> comboPerfecto persona5
+        Persona {edad = 90, sueños = [<function>], nombre = "Melina", felicidonios = 8312, habilidades = ["Medicina","Bailar","Estudiar"]}
+
+
+
+Ejemplos de invocación y respuesta punto 4:
+
+    Punto A:
+        *Main> persona1
+        Persona {edad = 25, sueños = [<function>,<function>], nombre = "Guadalupe", felicidonios = 101, habilidades = []}
+        *Main> fuenteMinimalista persona1
+        Persona {edad = 25, sueños = [<function>], nombre = "Guadalupe", felicidonios = 8101, habilidades = ["Sistemas"]}
+
+    Punto B:
+        *Main> fuenteCopada persona2
+        Persona {edad = 27, sueños = [], nombre = "Maximiliano", felicidonios = 4300, habilidades = ["Arte","Bailar"]}
+        *Main> fuenteCopada persona3
+        Persona {edad = 89, sueños = [], nombre = "Evangelina", felicidonios = 64, habilidades = ["Bailar","Estudiar"]}
+    
+    Punto C:
+        *Main> persona1
+        Persona {edad = 25, sueños = [<function>,<function>], nombre = "Guadalupe", felicidonios = 101, habilidades = []}
+        *Main> fuenteAPedido 0 persona1
+        Persona {edad = 25, sueños = [<function>,<function>], nombre = "Guadalupe", felicidonios = 8101, habilidades = ["Sistemas"]}
+        *Main> fuenteAPedido 1  persona1
+        Persona {edad = 26, sueños = [<function>,<function>], nombre = "Guadalupe", felicidonios = 201, habilidades = []}
+
+    Punto D:
+        *Main> persona1
+        Persona {edad = 25, sueños = [<function>,<function>], nombre = "Guadalupe", felicidonios = 101, habilidades = []}
+        *Main> fuenteSorda persona1
+        Persona {edad = 25, sueños = [<function>,<function>], nombre = "Guadalupe", felicidonios = 101, habilidades = []}
+
+
+Ejemplos de invocación y respuesta punto 5:
+
+    Punto A / Integrante 1:
+        *Main> fuenteGanadora [fuenteMinimalista, fuenteCopada] persona1 felicidonios
+        <function>
+
+    Punto B / Integrante 2:
+        *Main> fuenteGanadora [fuenteSorda, fuenteMinimalista] persona2 ((*(-1)).felicidonios)
+        <function>
+        *Main> fuenteGanadora [fuenteSorda, fuenteAPedido 1] persona1 ((*(-1)).felicidonios)  
+        <function>
+
+    Punto C / Integrante 3:
+        *Main> fuenteGanadora [fuenteMinimalista, fuenteAPedido 1] persona1 (length.habilidades)
+        <function>
+
+Ejemplos de invocación y respuesta punto 6:
+
+    Integrante 1:
+        *Main> sueñoValioso persona1
+        [<function>,<function>]
+        *Main> sueñoValioso persona3
+        []
+
+    Integrante 2:
+        *Main> sueñoRaro persona1
+        False
+        *Main> sueñoRaro persona4
+        True
+        
+    Integrante 3:
+        *Main> felicidadTotalGrupo [persona1, persona2]
+        12501
+        *Main> fuenteCopada persona1
+        Persona {edad = 26, sueños = [], nombre = "Guadalupe", felicidonios = 8201, habilidades = ["Sistemas"]}
+        *Main> fuenteCopada persona2
+        Persona {edad = 27, sueños = [], nombre = "Maximiliano", felicidonios = 4300, habilidades = ["Arte","Bailar"]}
+
+
+Ejemplos de invocación y respuesta punto 7:
+
+    Integrante1:
+        Cuando invoco fuenteMinimalista para la personaSueñosInfinitos, se aplica y elimina el primer sueño de la lista infinita.
+
+            *Main> fuenteMinimalista personaSueñosInfinitos
+
+        Pero luego, cuando devuelve la persona, no termina nunca, porque tiene que devolver una persona cuyos sueños son infinitos.
+
+            Persona {edad = 31, sueños = [<function>,<function>,<function>,<function>,..    (al infinito y más allá)
+
+        No obstante, a pesar de nunca terminar de devolver la persona, le cumple el primer sueño (observar que la edad es de 31, con
+        lo cual se cumplió el primer sueño). Esto se debe a que Haskell, por default, utiliza la evaluación lazy. Entonces, aunque
+        la persona tenga sueños infinitos, Haskell evalúa lo que necesita (en este caso, el primer sueño) y lo cumple.
+
+    Integrante 2: 
+        Al invocar la fuenteCopada para la personaSueñosInfinitos dado que la fuenteCopada trata de cumplirle todos los sueños a la
+	persona y los sueños de esta persona son infinitos fuenteCopada nunca termina de eliminarlos es por ello que no devuelve nada.
+	Relacionandolo con un concepto de la materia se esta utilizando lazy evaluation en el foldl ya que los sueños son reducidos en 
+	el momento que se los va a usar.
+	
+        *Main> fuenteCopada personaSueñosInfinitos
+
+    Integrante 3:
+        Al invocar por consola a la fuenteAPedido en la personaSueñosInfinitos, obtengo:
+        *Main> fuenteAPedido 2 personaSueñosInfinitos
+        Persona {edad = 31, sueños = [<function>,<function>,<function>,<function>,..
+        Me satisface el pedido la fuente, ya que el sueño cumplido es viajarA Paris, lo que aumento un año a la persona como vemos.
+        Esto es porque, al encontrar al sueño numero 2 (el tercero), lo cumple.
+        No le interesa obtener la lista completa de sueños a la hora de aplicar la fuenteAPedido, porque haskell realiza una evaluacion lazy.
+        No podemos ver la persona completa porque tiene sueños infinitos.

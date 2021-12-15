@@ -1,0 +1,93 @@
+import tp1Objetos.*
+
+//TEST CHASQUI INTEGRANTE 1
+
+test "chasqui no debe poder enviar un mensaje largo: 12345678901234567890123456789012345678901234567890"{
+	
+	assert.equals(chasqui.puedeEnviar("12345678901234567890123456789012345678901234567890"),false)
+}
+
+test "chasqui debe poder enviar un mensaje corto: 1234567890123456789012345678901234567890123456789"{
+	
+	assert.equals(chasqui.puedeEnviar("1234567890123456789012345678901234567890123456789"),true)
+}
+
+test "a chasqui le debe costar 24 enviar 123456789012"{
+	
+	assert.equals(chasqui.costoDe("123456789012"), 24)
+}
+
+//TEST SHERPA INTEGRANTE 2
+
+test "sherpa no debe poder enviar el mensaje: 123456789 "{
+
+	assert.equals(sherpa.puedeEnviar("123456789"), false)
+}
+
+test "sherpa debe poder enviar el mensaje: 1234567890" {
+	
+	assert.equals(sherpa.puedeEnviar("1234567890"), true)
+}
+
+test "a sherpa le debe costar 60 enviar el mensaje: 1234567890" {
+	
+	assert.equals(sherpa.costoDe("1234567890"), 60)
+}
+
+//TESTS MESSICH INTEGRANTE 3
+
+test "messich no envia abracadabra" {
+
+	assert.that(not messich.puedeEnviar("abracadabra"))
+}
+
+test "messich puede enviar pata de cabra" {
+
+	assert.that(messich.puedeEnviar("pata de cabra"))
+}
+
+test "a messich le cuesta 30 enviar pata de cabra " {
+
+	assert.equals(30,messich.costoDe("pata de cabra"))
+}
+
+//TESTS PUNTOS COMUNES
+
+//pali
+
+test "pali no envia abracadabra" {
+
+	assert.that(not pali.puedeEnviar("abracadabra"))
+}
+
+test "pali puede enviar Anita lava la tina" {
+
+	assert.that(pali.puedeEnviar("Anita lava la tina"))
+}
+
+test "a pali le cuesta 72 enviar Anita lava la tina " {
+
+	assert.equals(72,pali.costoDe("Anita lava la tina"))
+}
+
+test "a pali le cuesta 80 enviar Allí va Ramón y no maravilla " {
+
+	assert.equals(80,pali.costoDe("Allí va Ramón y no maravilla"))
+}
+
+//agenciaDeMensajeria
+
+test "se elige a messich para enviar nomelacont" {
+
+	assert.equals(messich,agenciaDeMensajeria.quienEnvia("nomelacont"))
+}
+
+test "se elige a chasqui para enviar hola chau hola chau hola chau hola chau hola chau" {
+
+	assert.equals(chasqui,agenciaDeMensajeria.quienEnvia("hola chau hola chau hola chau hola chau hola chau"))
+}
+
+test "se elige a sherpa para enviar al cortar los tomates en juliana, luego hay que sofreirlos con ajo y morrón verde o rojo si no se tiene a mano" {
+
+	assert.equals(sherpa,agenciaDeMensajeria.quienEnvia("al cortar los tomates en juliana, luego hay que sofreirlos con ajo y morrón verde o rojo si no se tiene a mano"))
+}

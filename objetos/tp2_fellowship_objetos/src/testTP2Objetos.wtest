@@ -1,0 +1,155 @@
+import TP2Objetos.*
+
+describe "TEST" {
+
+	const enviosRapidos = new Sector(costoDe = 20)
+	const enviosEstandares = new Sector(costoDe = 15)
+	const enviosVIP = new Sector(costoDe = 30)
+	
+	const unParanoico = new MensajerxEstandar(sector = enviosRapidos, tipoMensajero = paranoico)
+	const unAlegre = new MensajerxEstandar(sector = enviosEstandares, tipoMensajero = new Alegre(gradoAlegria= 12))
+	const unSerio = new MensajerxEstandar(sector = enviosVIP, tipoMensajero = serio)
+	
+	const unMensajeCifrado = new MensajeCifrado(mensaje=" mensaje no me la container")
+	const unMensajeElocuente = new MensajeElocuente(mensaje="oye como va")
+	const otroMensajeElocuente = new MensajeElocuente(mensaje = "mi ritmo bueno pa gozar")
+	const mensajeElocuente = new MensajeElocuente(mensaje = "todo piola")
+	const mensajeCantado1 = new MensajeCantado(mensaje = "holaaaa")
+	const mensajeNormal1 = new Mensaje(mensaje = "menos de 30 caracteres")
+	const mensajeCantado2 = new MensajeCantado(mensaje = "queridos brian, valeria, espero que les guste nuestro tp")
+	const mensajeNormal2 = new Mensaje(mensaje = "maaas de treintaaa caractereees")
+
+	
+	// 1-TESTS PICHCA INTEGRANTE 1
+	test "pichca: condiciones de envío" {
+		assert.notThat(pichca.puedeEnviar("buenasss"))
+		assert.that(pichca.puedeEnviar("que onda loco todo bien?"))
+	}
+
+	test "pichca: costo" {
+		assert.that(pichca.costoDe("buenasss")%3==0
+			|| pichca.costoDe("buenasss")%4==0
+			|| pichca.costoDe("buenasss")%5==0
+			|| pichca.costoDe("buenasss")%6==0
+			|| pichca.costoDe("buenasss")%7==0
+		)
+	}
+
+	// 2-TEST MENSAJERO ESTANDAR
+	
+	test "mensajero estandar: puede enviar mensaje"{
+		assert.that(unParanoico.puedeEnviar("hola como estas? Yo todo bien y vos"))
+	}
+	
+	test "mensajero estandar puede enviar mensaje 2"{
+		assert.that(unParanoico.puedeEnviar("hola como estas? tas ok?"))
+	}
+	
+	test "mensajero estandar no puede enviar mensaje"{
+		assert.that(unParanoico.puedeEnviar("hola").negate())
+	}
+	
+	test "costo de mensajero que pertenece al sector de envios rapidos"{
+		assert.equals(unParanoico.costoDe("hola como andas"), 60)
+	}
+	
+	test "costo de mensajero que pertenece al sector de envios estandares"{
+		assert.equals(unAlegre.costoDe("hola como andas"), 45)
+	}
+	
+	test "costo de mensajero que pertenece al sector de envios VIP"{
+		assert.equals(unSerio.costoDe("hola como andas"), 90)
+	}
+	
+	// 3- RECIBIR/ENVIAR MENSAJE
+	test "no enviar un mensaje vacio" {
+		assert.throwsExceptionWithMessage("La operacion no se puede realizar: mensaje vacio", { agenciaDeMensajeria.enviarMensaje("")})
+	}
+
+	test "nadie puede enviar el mensaje" {
+		assert.throwsExceptionWithMessage("La operacion no se puede realizar: nadie puede enviarlo", { agenciaDeMensajeria.enviarMensaje("cortito")})
+	}
+
+	test "enviar un mensaje 1" {
+		const cantidadMensajes = agenciaDeMensajeria.historial().size()
+		agenciaDeMensajeria.enviarMensaje("mensaje apto para alguien")
+		assert.equals(agenciaDeMensajeria.historial().size(), cantidadMensajes + 1)
+	}
+	
+	test "enviar un mensaje 2" {
+		agenciaDeMensajeria.enviarMensaje("mensaje apto para alguien")
+		assert.notThat(agenciaDeMensajeria.historial().isEmpty())
+	}
+	
+	// 4 - GANANCIA NETA DEL MES
+	test "ganancia neta" {
+		//ROMPE porque el mensaje como string no sabe su ganancia neta. hay que cambiar TODO lo de agenciaDeMensajeria
+		
+		//agenciaDeMensajeria.enviarMensaje(unMensajeElocuente)
+		agenciaDeMensajeria.enviarMensaje("soy un mensaje mayor a treinta caracteres")
+		agenciaDeMensajeria.enviarMensaje("soy un mensaje menor a 20")
+		assert.equals(agenciaDeMensajeria.gananciaNeta(),1280) //rompe porque dice que no hay ningun elemento en el historial en los ultimos 30 dias?? y es mentira
+		//CUANDO FUNCIONE HAY QUE CORREGIR EL 50
+	}
+	
+	//5 - CHASQUI QUILLA
+	test "chasqui quilla" {
+		agenciaDeMensajeria.enviarMensaje("primer mensaje de prueba")
+		agenciaDeMensajeria.enviarMensaje("segundo mensaje de prueba")
+		agenciaDeMensajeria.enviarMensaje("tercer mensaje de prueba")
+		assert.equals(agenciaDeMensajeria.chasquiQuilla(),messich) //rompe porque dice que no hay ningun elemento en el historial en los ultimos 30 dias?? y es mentira
+		//CUANDO FUNCIONE HAY QUE CORREGIR EL messich
+	}
+	
+	//7- MENSAJE CANTADO
+	
+	test "mensaje cantado"{
+		assert.equals(mensajeCantado1.gananciaMensaje(), mensajeNormal1.gananciaMensaje())
+		assert.equals(mensajeCantado2.gananciaMensaje(), mensajeNormal2.gananciaMensaje())				
+	}
+	
+	//8- MENSAJE ELOCUENTE
+	
+	test "grado de elocuencia de mensaje elocuente 1"{
+		assert.equals(unMensajeElocuente.gradoElocuencia(), 2)
+	}
+	
+	test "grado de elocuencia de mensaje elocuente 2"{
+		assert.equals(otroMensajeElocuente.gradoElocuencia(), 3)
+	}
+	
+	test "grado de elocuencia de mensaje elocuente 3"{
+		assert.equals(mensajeElocuente.gradoElocuencia(), 1)
+	}
+	
+	test "ganancia de mensaje elocuente"{
+		assert.equals(otroMensajeElocuente.ganancia(), 1500)
+	}
+	
+	test "costo de mensaje elocuente"{
+		assert.equals(otroMensajeElocuente.costoDe(), 56)
+	}
+	
+	//9- MENSAJE CIFRADO 
+	test "mensaje cifrado" {
+		assert.equals(unMensajeCifrado.entregar(),"reniatnoc al em on ejasnem ") 
+		assert.equals(unMensajeCifrado.costoDe(),79) 
+	}
+	
+	//10 - CREANDO UN MENSAJE
+	test "paranoico entrega un mensaje cifrado" {
+		assert.equals(unParanoico.tipoMensajero().definirMensaje("hola que tal").entregar(),"lat euq aloh")
+	}
+	
+	test "alegre entrega un mensaje cantado" {
+		assert.equals(unAlegre.tipoMensajero().definirMensaje("un mensaje").duracion(),72)
+	}
+	
+	test "serio entrega un mensaje cifrado" {
+		unSerio.tipoMensajero().definirMensaje("primer mensaje")
+		unSerio.tipoMensajero().definirMensaje("segundo mensaje")
+		unSerio.tipoMensajero().definirMensaje("tercer mensaje")
+		assert.equals(unSerio.tipoMensajero().definirMensaje("hola que tal").entregar(),"lat euq aloh")
+	}
+}
+
